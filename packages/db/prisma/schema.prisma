@@ -6,12 +6,60 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id      String @id @default(cuid())
-    title   String
-    content String
+model User {
+    id        String                  @id
+    firstName String
+    lastName  String
+    createdAt DateTime                @default(now())
+    updatedAt DateTime                @default(now())
+    Company   User_Company_Favorite[]
+}
+
+model Company {
+    id        Int                     @id
+    name      String
+    logo      String
+    ticker    String
+    createdAt DateTime                @default(now())
+    updatedAt DateTime                @default(now())
+    user      User_Company_Favorite[]
+    article   Article[]
+}
+
+model User_Company_Favorite {
+    id                       Int      @id @default(autoincrement())
+    user                     User     @relation(fields: [user_id], references: [id])
+    user_id                  String
+    user_company             Company  @relation(fields: [user_company_favorite_id], references: [id])
+    user_company_favorite_id Int
+    Article                  Article? @relation(fields: [articleId], references: [id])
+    articleId                Int?
+}
+
+model Article {
+    id           Int                     @id
+    company      Company                 @relation(fields: [company_id], references: [id])
+    company_id   Int
+    title        String
+    link         String
+    keywords     String[]
+    video_url    String
+    description  String
+    content      String
+    publish_date DateTime
+    source_id    String
+    countries    String[]
+    categories   String[]
+    language     String
+    sentiment    String
+    s_positive   Decimal
+    s_negative   Decimal
+    s_neutral    Decimal
+    createdAt    DateTime                @default(now())
+    updatedAt    DateTime                @default(now())
+    user         User_Company_Favorite[]
 }

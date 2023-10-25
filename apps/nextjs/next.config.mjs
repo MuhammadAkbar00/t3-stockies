@@ -14,6 +14,13 @@ const config = {
   eslint: {
     ignoreDuringBuilds: !!process.env.CI,
   },
+  images: {
+    domains: [
+      "png.pngtree.com",
+      "cdn-icons-png.flaticon.com",
+      "upload.wikimedia.org",
+    ],
+  },
 };
 
 export default config;
