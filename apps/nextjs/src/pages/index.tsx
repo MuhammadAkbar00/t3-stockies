@@ -8,6 +8,8 @@ import Link from "next/link";
 import Header from "../components/Header";
 import CompanyCard from "../components/CompanyCard";
 import CompanyCardSmall from "../components/CompanyCardSmall";
+import { get } from "lodash";
+import ArticleCard from "../components/ArticleCard";
 
 // const PostCard: React.FC<{
 //   post: inferProcedureOutput<AppRouter["post"]["all"]>[number];
@@ -23,7 +25,12 @@ import CompanyCardSmall from "../components/CompanyCardSmall";
 // };
 
 const Home: NextPage = () => {
-  const postQuery = trpc.post.all.useQuery();
+  const companyQuery = trpc.company.all.useQuery();
+  const articleQuery = trpc.article.all.useQuery();
+  const companyData = get(companyQuery, "data", []);
+  const articleData = get(articleQuery, "data", []);
+  console.log(companyData, "companyData");
+  console.log(articleData, "articleData");
 
   const nasdaq = [
     {
@@ -60,36 +67,35 @@ const Home: NextPage = () => {
   ];
 
   return (
-    <>
-      <Header />
-      <main className="bg-light-gray flex min-h-screen flex-col px-48 py-7">
-        <div className="flex flex-row justify-center gap-8">
-          <div className="min-h-[600px]">
-            {nasdaq.map((company) => (
-              <CompanyCard key={company.name} company={company} />
+    <main className="bg-light-gray flex min-h-screen flex-col py-7 lg:px-36">
+      <div className="flex flex-col justify-center gap-8 sm:flex-row">
+        <div className="lg:w-[50%] lg:max-w-[50%]">
+          {companyData.map((company) => (
+            <CompanyCard key={company.name} company={company} />
+          ))}
+        </div>
+        <div>
+          <h2 className="font-lato text-primary p-2 text-xl font-bold">
+            Other Company / Favorited Company
+          </h2>
+          <div>
+            {companyData.map((company) => (
+              <CompanyCardSmall key={company.name} company={company} />
             ))}
           </div>
-          <div className="min-h-[600px]">
-            <h2 className="font-lato text-primary text-xl font-bold">
-              Other Company / Favorited Company
-            </h2>
-            <div>
-              {nasdaq.map((company) => (
-                <CompanyCardSmall key={company.name} company={company} />
-              ))}
-            </div>
-          </div>
         </div>
-        <div className="flex flex-row bg-red-600">
-          <div className="min-h-[600px] min-w-[50%] flex-grow bg-green-600">
-            Section1
-          </div>
-          <div className="min-h-[600px] min-w-[50%] flex-grow bg-pink-600">
-            Section2
-          </div>
+      </div>
+      <div className="flex flex-col px-0">
+        <h2 className="font-lato text-primary p-2 text-2xl font-bold">
+          Articles
+        </h2>
+        <div className="grid grid-cols-2 justify-end gap-y-5 gap-x-36 pl-2">
+          {articleData.map((article) => (
+            <ArticleCard key={`article-card-${article.id}`} article={article} />
+          ))}
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 };
 

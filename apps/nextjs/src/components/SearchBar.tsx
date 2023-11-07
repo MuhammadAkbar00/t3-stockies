@@ -1,4 +1,10 @@
-export default function SearchBar() {
+import { ChangeEvent } from "react";
+
+interface SearchProps {
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+const SearchBar: React.FC<SearchProps> = ({ onChange }) => {
   return (
     <form>
       <label
@@ -31,8 +37,11 @@ export default function SearchBar() {
           className="block h-12 w-full rounded-xl border border-gray-300 bg-gray-50 p-4 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
           placeholder="Search"
           required
+          onChange={(e) => onChange(e)}
         />
       </div>
     </form>
   );
-}
+};
+
+export default SearchBar;

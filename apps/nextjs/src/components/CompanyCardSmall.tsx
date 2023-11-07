@@ -2,25 +2,28 @@ import Image from "next/image";
 
 interface IProps {
   company: {
+    id: number;
+    logo: string;
     name: string;
-    image: string;
     ticker: string;
+    createdAt: Date;
+    updatedAt: Date;
   };
 }
 
 export default function CompanyCardSmall({ company }: IProps) {
   return (
     <div className="first: m-2 mt-0 flex flex-row justify-between rounded-lg bg-white p-6 shadow-md">
-      <div className="flex flex-1 flex-row">
+      <div className="flex flex-1 flex-col lg:flex-row">
         <Image
-          src={company.image}
+          src={company.logo}
           width={40}
           height={40}
           alt={`${company.name}-logo`}
           className="m-2 self-start"
         />
         <div>
-          <p className="w-[200px] truncate text-2xl font-bold text-primary">
+          <p className="text-primary w-[200px] truncate text-2xl font-bold">
             {company.name}
           </p>
           <p className="text-base text-[#A7A7A7]">{company.ticker}</p>
@@ -38,8 +41,8 @@ export default function CompanyCardSmall({ company }: IProps) {
               <path
                 d="M4.66667 11.8333L11.3333 5.16663M11.3333 5.16663H4.66667M11.3333 5.16663V11.8333"
                 stroke="#4DC43A"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
             <span className="text-light-green text-base">

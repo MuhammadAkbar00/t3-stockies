@@ -9,7 +9,7 @@ export default function Header() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <h1 className="font-lato text-primary text-xl font-bold">
               Stockies
@@ -17,7 +17,7 @@ export default function Header() {
           </a>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <SearchBar />
+          <SearchBar onChange={() => {}} />
         </div>
         <div className="flex lg:hidden">
           <button
@@ -266,7 +266,7 @@ export default function Header() {
             Articles
           </a>
           <a
-            href="#"
+            href="/companies"
             className="font-lato text-sm font-normal leading-6 text-[#666666]"
           >
             Companies

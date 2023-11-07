@@ -51,6 +51,7 @@ model Article {
     description  String
     content      String
     publish_date DateTime
+    image_url    String?
     source_id    String
     countries    String[]
     categories   String[]

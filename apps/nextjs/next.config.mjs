@@ -15,11 +15,18 @@ const config = {
     ignoreDuringBuilds: !!process.env.CI,
   },
   images: {
-    domains: [
-      "png.pngtree.com",
-      "cdn-icons-png.flaticon.com",
-      "upload.wikimedia.org",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
+    // domains: [
+    //   "png.pngtree.com",
+    //   "cdn-icons-png.flaticon.com",
+    //   "upload.wikimedia.org",
+    //   "cdn.icon-icons.com",
+    // ],
   },
 };
 

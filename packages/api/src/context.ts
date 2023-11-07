@@ -11,7 +11,7 @@ import type {
  * Replace this with an object if you want to pass things to createContextInner
  */
 type AuthContextProps = {
-  auth: SignedInAuthObject | SignedOutAuthObject;
+  auth: SignedInAuthObject | SignedOutAuthObject | null;
 };
 
 /** Use this helper for:
