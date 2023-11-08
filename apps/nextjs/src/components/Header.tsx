@@ -260,7 +260,7 @@ export default function Header() {
             Social Media
           </a>
           <a
-            href="#"
+            href="/articles"
             className="font-lato text-sm font-normal leading-6 text-[#666666]"
           >
             Articles
