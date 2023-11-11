@@ -1,9 +1,8 @@
 import { trpc } from "../../utils/trpc";
 import { useEffect, useState } from "react";
 import { get } from "lodash";
-import CompanyCard from "../../components/CompanyCard";
 import SearchBar from "../../components/SearchBar";
-import ArticleCard from "../../components/ArticleCard";
+import ArticleCardSmall from "../../components/ArticleCardSmall";
 
 const Articles = () => {
   const { data: articles } = trpc.article.all.useQuery();
@@ -13,8 +12,10 @@ const Articles = () => {
   useEffect(() => {
     const search = searchTerm.toLowerCase();
     setSearchedArticles(
-      articles?.filter((article) =>
-        article.title.toLowerCase().includes(search),
+      articles?.filter(
+        (article) =>
+          article.title.toLowerCase().includes(search) ||
+          article.description.toLowerCase().includes(search),
       ),
     );
   }, [searchTerm, articles]);
@@ -23,11 +24,16 @@ const Articles = () => {
 
   return (
     <main className="bg-light-gray flex min-h-screen flex-col py-7 lg:px-36">
-      <div className="flex flex-col justify-center gap-2">
-        <SearchBar onChange={(e) => setSearchTerm(e.target.value)} />
-        {searchedArticles?.map((article) => (
-          <ArticleCard key={article.id} article={article} />
-        ))}
+      <div className="flex flex-col justify-center">
+        <div className="flex items-center justify-between">
+          <p className="text-primary text-xl font-bold">Articles</p>
+          <SearchBar onChange={(e) => setSearchTerm(e.target.value)} />
+        </div>
+        <div className="mt-4 flex flex-wrap gap-4">
+          {searchedArticles?.map((article) => (
+            <ArticleCardSmall key={article.id} article={article} />
+          ))}
+        </div>
       </div>
     </main>
   );

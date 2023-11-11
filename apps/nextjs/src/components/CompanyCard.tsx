@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface IProps {
   company: {
@@ -79,9 +80,11 @@ export default function CompanyCard({ company, sentiment }: IProps) {
         </div>
       </div>
       <div className="flex flex-col justify-end gap-8">
-        <button className="font-lato rounded-lg bg-[#412586] p-2 px-8 py-3 text-white">
-          More
-        </button>
+        <Link href={`/companies/${company.id}`}>
+          <button className="font-lato rounded-lg bg-[#412586] p-2 px-8 py-3 text-white">
+            More
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -26,6 +26,7 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   companyId,
 }) => {
   const { data: company, isLoading } = trpc.company.byId.useQuery(companyId);
+  const { data: companies } = trpc.company.all.useQuery();
   const { data: articles } = trpc.article.byCompanyId.useQuery(companyId);
   const [sentiment, setSentiment] = useState<SentimentStats | undefined>(
     initialState,
@@ -71,12 +72,34 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const companyName = get(company, "name", null);
 
   return company ? (
-    <main className="bg-light-gray flex min-h-screen justify-center py-7 lg:px-36">
-      <div className="flex-auto flex-col">
-        <CompanyCard company={company} sentiment={sentiment} />
+    <main className="bg-light-gray flex min-h-screen flex-col py-7 lg:px-36">
+      <div className="flex flex-col justify-between gap-8 sm:flex-row">
+        <div className="flex flex-col lg:w-[50%] lg:max-w-[50%]">
+          <CompanyCard company={company} sentiment={sentiment} />
+          <div>Where graph is going to be</div>
+        </div>
+        <div>
+          <h2 className="font-lato text-primary p-2 text-xl font-bold">
+            Other Company / Favorited Company
+          </h2>
+          <div>
+            {companies?.map((company) => (
+              <CompanyCardSmall key={company.name} company={company} />
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="flex-auto flex-col">
-        <CompanyCard company={company} />
+      <div className="flex flex-col px-0">
+        <div className="lg:w-[50%] lg:max-w-[50%]">
+          <h2 className="font-lato text-primary p-2 text-2xl font-bold">
+            Articles
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 justify-end gap-y-5 gap-x-36 pl-2">
+          {articles?.map((article) => (
+            <ArticleCard key={article.id} article={article} />
+          ))}
+        </div>
       </div>
     </main>
   ) : null;
@@ -85,6 +108,8 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 import { prisma } from "@acme/db";
 import superjson from "superjson";
 import CompanyCard from "../../components/CompanyCard";
+import CompanyCardSmall from "../../components/CompanyCardSmall";
+import ArticleCard from "../../components/ArticleCard";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = createProxySSGHelpers({

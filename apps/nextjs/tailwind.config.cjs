@@ -1,6 +1,7 @@
 /** @type {import("tailwindcss").Config} */
 module.exports = {
   presets: [require("@acme/tailwind-config")],
+  plugins: [require("@tailwindcss/line-clamp")],
   theme: {
     extend: {
       fontFamily: {
