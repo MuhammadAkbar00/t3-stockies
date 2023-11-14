@@ -248,18 +248,6 @@ export default function Header() {
           </div>
 
           <a
-            href="#"
-            className="font-lato text-sm font-normal leading-6 text-[#666666]"
-          >
-            News
-          </a>
-          <a
-            href="#"
-            className="font-lato text-sm font-normal leading-6 text-[#666666]"
-          >
-            Social Media
-          </a>
-          <a
             href="/articles"
             className="font-lato text-sm font-normal leading-6 text-[#666666]"
           >

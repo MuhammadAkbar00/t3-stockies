@@ -24,7 +24,7 @@ const Companies = () => {
   console.log(companies, "companies");
 
   return (
-    <main className="bg-light-gray flex min-h-screen flex-col py-7 lg:px-36">
+    <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
       <div className="flex flex-col justify-center">
         <div className="flex items-center justify-between">
           <p className="text-primary text-xl font-bold">Company List</p>

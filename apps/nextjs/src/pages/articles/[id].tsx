@@ -30,7 +30,7 @@ const ArticleDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   console.log(article, "article");
 
   return article ? (
-    <main className="bg-light-gray flex min-h-screen flex-col py-7 lg:px-36">
+    <main className="">
       <div className="flex flex-col justify-between gap-8">
         <p className="text-primary text-4xl font-bold">{article.title}</p>
         <p className="text-primary text-2xl">{article.description}</p>

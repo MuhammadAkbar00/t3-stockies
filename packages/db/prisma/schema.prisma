@@ -20,7 +20,7 @@ model User {
 }
 
 model Company {
-    id        Int                     @id
+    id        Int                     @id @default(autoincrement())
     name      String
     logo      String
     ticker    String
@@ -41,16 +41,16 @@ model User_Company_Favorite {
 }
 
 model Article {
-    id           Int                     @id
+    id           Int                     @id @default(autoincrement())
     company      Company                 @relation(fields: [company_id], references: [id])
     company_id   Int
     title        String
     link         String
     keywords     String[]
-    video_url    String
+    video_url    String?
     description  String
     content      String
-    publish_date DateTime
+    publish_date DateTime?
     image_url    String?
     source_id    String
     countries    String[]

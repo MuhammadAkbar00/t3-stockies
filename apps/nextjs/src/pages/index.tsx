@@ -4,25 +4,12 @@ import { trpc } from "../utils/trpc";
 import type { inferProcedureOutput } from "@trpc/server";
 import type { AppRouter } from "@acme/api";
 import { useAuth, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
-import Header from "../components/Header";
 import CompanyCard from "../components/CompanyCard";
 import CompanyCardSmall from "../components/CompanyCardSmall";
 import { get } from "lodash";
 import ArticleCard from "../components/ArticleCard";
-
-// const PostCard: React.FC<{
-//   post: inferProcedureOutput<AppRouter["post"]["all"]>[number];
-// }> = ({ post }) => {
-//   return (
-//     <div className="max-w-2xl rounded-lg border-2 border-gray-500 p-4 transition-all hover:scale-[101%]">
-//       <h2 className="text-2xl font-bold text-[hsl(280,100%,70%)]">
-//         {post.title}
-//       </h2>
-//       <p>{post.content}</p>
-//     </div>
-//   );
-// };
+import CompanyCardMinimal from "../components/CompanyCardMinimal";
+import ArticleCardSmall from "../components/ArticleCardSmall";
 
 const Home: NextPage = () => {
   const companyQuery = trpc.company.all.useQuery();
@@ -32,43 +19,9 @@ const Home: NextPage = () => {
   console.log(companyData, "companyData");
   console.log(articleData, "articleData");
 
-  const nasdaq = [
-    {
-      name: "Airbnb Inc",
-      image: "https://cdn-icons-png.flaticon.com/512/2111/2111320.png",
-      ticker: "ABNB",
-    },
-    {
-      name: "Advanced Micro Devices Inc",
-      image: "https://cdn-icons-png.flaticon.com/512/731/731984.png",
-      ticker: "AMD",
-    },
-    {
-      name: "Amazon.com Inc",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Amazon_icon.svg/2500px-Amazon_icon.svg.png",
-      ticker: "AMZN",
-    },
-    {
-      name: "Apple Inc",
-      image: "https://cdn-icons-png.flaticon.com/512/94/94225.png",
-      ticker: "AAPL",
-    },
-    {
-      name: "Activision Blizzard Inc",
-      image: "https://cdn-icons-png.flaticon.com/512/731/731984.png",
-      ticker: "ATVI",
-    },
-    {
-      name: "Adobe Inc.",
-      image: "https://cdn-icons-png.flaticon.com/512/731/731984.png",
-      ticker: "ADBE",
-    },
-  ];
-
   return (
-    <main className="bg-light-gray flex min-h-screen flex-col py-7 lg:px-36">
-      <div className="flex flex-col justify-center gap-8 sm:flex-row">
+    <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
+      <div className="flex flex-col justify-between gap-8 sm:flex-row">
         <div className="lg:w-[50%] lg:max-w-[50%]">
           {companyData.map((company) => (
             <CompanyCard key={company.name} company={company} />
@@ -78,9 +31,9 @@ const Home: NextPage = () => {
           <h2 className="font-lato text-primary p-2 text-xl font-bold">
             Other Company / Favorited Company
           </h2>
-          <div>
+          <div className="flex flex-col gap-2">
             {companyData.map((company) => (
-              <CompanyCardSmall key={company.name} company={company} />
+              <CompanyCardMinimal key={company.name} company={company} />
             ))}
           </div>
         </div>
@@ -89,9 +42,12 @@ const Home: NextPage = () => {
         <h2 className="font-lato text-primary p-2 text-2xl font-bold">
           Articles
         </h2>
-        <div className="grid grid-cols-2 justify-end gap-y-5 gap-x-36 pl-2">
+        <div className="grid grid-cols-1 justify-end gap-x-28 gap-y-5 pl-2 lg:grid-cols-2 xl:grid-cols-3 xl:gap-x-7">
           {articleData.map((article) => (
-            <ArticleCard key={`article-card-${article.id}`} article={article} />
+            <ArticleCardSmall
+              key={`article-card-${article.id}`}
+              article={article}
+            />
           ))}
         </div>
       </div>
