@@ -5,7 +5,7 @@ export const articleRouter = router({
   all: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.article.findMany();
   }),
-  byId: publicProcedure.input(z.number()).query(({ ctx, input }) => {
+  byId: publicProcedure.input(z.string()).query(({ ctx, input }) => {
     return ctx.prisma.article.findFirst({ where: { id: input } });
   }),
   byCompanyId: publicProcedure.input(z.number()).query(({ ctx, input }) => {
