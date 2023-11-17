@@ -107,7 +107,6 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   const createArticle = () => {
     mutate({
-      id: 20,
       company_id: 1,
       title: articleData.title,
       link: articleData.link,

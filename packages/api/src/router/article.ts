@@ -14,7 +14,6 @@ export const articleRouter = router({
   create: publicProcedure
     .input(
       z.object({
-        id: z.number(),
         company_id: z.number(),
         title: z.string(),
         link: z.string(),
