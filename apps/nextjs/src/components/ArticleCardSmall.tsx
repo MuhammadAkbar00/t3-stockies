@@ -10,7 +10,7 @@ interface IProps {
     countries: string[];
     createdAt: Date;
     description: string;
-    id: number;
+    id: string;
     image_url: string | null;
     keywords: string[];
     language: string;
