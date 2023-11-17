@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   if (typeof id !== "string") throw new Error("no id");
 
-  const articleId = +id;
+  const articleId = id;
   await ssg.article.byId.prefetch(articleId);
 
   return {
