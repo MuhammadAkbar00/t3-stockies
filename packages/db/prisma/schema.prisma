@@ -11,12 +11,13 @@ datasource db {
 }
 
 model User {
-    id        String                  @id
-    firstName String
-    lastName  String
-    createdAt DateTime                @default(now())
-    updatedAt DateTime                @default(now())
-    Company   User_Company_Favorite[]
+    id         String                  @id @default(uuid())
+    email      String?
+    first_name String?
+    last_name  String?
+    createdAt  DateTime                @default(now())
+    updatedAt  DateTime                @default(now())
+    Company    User_Company_Favorite[]
 }
 
 model Company {
@@ -37,11 +38,11 @@ model User_Company_Favorite {
     user_company             Company  @relation(fields: [user_company_favorite_id], references: [id])
     user_company_favorite_id Int
     Article                  Article? @relation(fields: [articleId], references: [id])
-    articleId                Int?
+    articleId                String?  @db.Uuid
 }
 
 model Article {
-    id           Int                     @id @default(autoincrement())
+    id           String                  @id @default(dbgenerated("uuid_generate_v1()")) @db.Uuid
     company      Company                 @relation(fields: [company_id], references: [id])
     company_id   Int
     title        String

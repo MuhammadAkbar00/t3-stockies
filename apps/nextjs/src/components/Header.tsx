@@ -1,7 +1,24 @@
-import Image from "next/image";
-import SearchBar from "./SearchBar";
+import { useRouter } from "next/router";
+import { useUser } from "../context/authContext";
+import React, { useState } from "react";
 
 export default function Header() {
+  const router = useRouter();
+  const { user, handleLogout } = useUser();
+  const [isOpen, setIsOpen] = useState(false);
+
+  function logout() {
+    handleLogout();
+    setIsOpen(false);
+  }
+
+  function handleOnClick() {
+    if (user) {
+      setIsOpen((open) => !open);
+    } else {
+      router.push("/sign-in");
+    }
+  }
   return (
     <header className="bg-white">
       <nav
@@ -11,13 +28,10 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <h1 className="font-lato text-primary text-xl font-bold">
+            <h1 className="font-lato text-primary text-2xl font-bold tracking-tight">
               Stockies
             </h1>
           </a>
-        </div>
-        <div className="hidden lg:flex lg:gap-x-12">
-          <SearchBar onChange={() => {}} />
         </div>
         <div className="flex lg:hidden">
           <button
@@ -266,13 +280,35 @@ export default function Header() {
             Favorites
           </a>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="relative hidden hover:cursor-pointer lg:flex lg:flex-1 lg:justify-end">
           <a
-            href="#"
+            onClick={handleOnClick}
             className="font-lato text-sm font-semibold leading-6 text-gray-900"
           >
-            Log in <span aria-hidden="true">&rarr;</span>
+            {user ? (
+              <div>
+                {!user.first_name ? (
+                  <>User</>
+                ) : (
+                  <>
+                    {user.first_name} {user.last_name}
+                  </>
+                )}
+              </div>
+            ) : (
+              <p>Log in</p>
+            )}
           </a>
+          {isOpen && (
+            <div
+              className="absolute top-[2.5rem] rounded-lg bg-white"
+              onClick={logout}
+            >
+              <span className="hover:bg-primary block w-32 px-4 py-2 text-center hover:cursor-pointer hover:rounded-lg hover:text-white">
+                Log out
+              </span>
+            </div>
+          )}
         </div>
       </nav>
 

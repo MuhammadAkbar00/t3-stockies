@@ -1,6 +1,5 @@
 import { trpc } from "../../utils/trpc";
 import { useEffect, useState } from "react";
-import { get } from "lodash";
 import SearchBar from "../../components/SearchBar";
 import ArticleCardSmall from "../../components/ArticleCardSmall";
 
@@ -19,8 +18,6 @@ const Articles = () => {
       ),
     );
   }, [searchTerm, articles]);
-
-  console.log(articles, "articles");
 
   return (
     <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">

@@ -131,8 +131,6 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   articles?.map((article) => {
     const date = article.publish_date ? new Date(article.publish_date) : null;
     const formatted = date ? format(date, "dd/MM/yyyy") : null;
-
-    console.log(formatted);
   });
 
   function groupArticlesByDate(articles: Article[]): {

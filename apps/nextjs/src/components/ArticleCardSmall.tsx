@@ -1,5 +1,6 @@
 import { Prisma } from "@acme/db";
 import Image from "next/image";
+import { formatImageSource } from "../utils/formatImageSource";
 
 interface IProps {
   article: {
@@ -53,7 +54,6 @@ export default function ArticleCardSmall({ article }: IProps) {
   function handleDate(publish_date: Date | null) {
     return publish_date ? timeAgo(publish_date) : "";
   }
-  console.log(article);
   return (
     <a
       href={`/articles/${article.id}`}
@@ -65,7 +65,7 @@ export default function ArticleCardSmall({ article }: IProps) {
         sizes="100vw"
         className="h-full w-full rounded-l-lg object-cover md:h-full md:w-48"
         src={
-          article.image_url ||
+          formatImageSource(article.image_url) ||
           "https://media.istockphoto.com/id/1202205418/photo/find-the-shortest-path-between-points-a-and-b.jpg?s=612x612&w=0&k=20&c=_0PSqcLbxAHx8eb_vFzDuKpKtlvZmxj1XbwZ61iwE0s="
         }
         alt=""

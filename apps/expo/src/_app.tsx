@@ -15,17 +15,17 @@ export const App = () => {
       publishableKey={Constants.expoConfig?.extra?.CLERK_PUBLISHABLE_KEY}
       tokenCache={tokenCache}
     >
-      <SignedIn>
-        <TRPCProvider>
-          <SafeAreaProvider>
-            <HomeScreen />
-            <StatusBar />
-          </SafeAreaProvider>
-        </TRPCProvider>
-      </SignedIn>
-      <SignedOut>
+      {/* <SignedIn> */}
+      <TRPCProvider>
+        <SafeAreaProvider>
+          <HomeScreen />
+          <StatusBar />
+        </SafeAreaProvider>
+      </TRPCProvider>
+      {/* </SignedIn> */}
+      {/* <SignedOut>
         <SignInSignUpScreen />
-      </SignedOut>
+      </SignedOut> */}
     </ClerkProvider>
   );
 };

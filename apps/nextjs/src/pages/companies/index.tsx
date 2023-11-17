@@ -21,8 +21,6 @@ const Companies = () => {
     );
   }, [searchTerm, companies]);
 
-  console.log(companies, "companies");
-
   return (
     <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
       <div className="flex flex-col justify-center">

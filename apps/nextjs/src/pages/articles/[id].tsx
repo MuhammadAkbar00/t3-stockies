@@ -27,8 +27,6 @@ const ArticleDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 }) => {
   const { data: article, isLoading } = trpc.article.byId.useQuery(articleId);
 
-  console.log(article, "article");
-
   return article ? (
     <main className="">
       <div className="flex flex-col justify-between gap-8">
