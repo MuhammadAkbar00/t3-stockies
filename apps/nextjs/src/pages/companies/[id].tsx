@@ -150,38 +150,48 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   };
 
   useEffect(() => {
-    const articlesSentiment = articles?.reduce(
-      (accumulator, current) => {
-        accumulator.total++;
+    if (articles.length > 0) {
+      const articlesSentiment = articles?.reduce(
+        (accumulator, current) => {
+          accumulator.total++;
 
-        switch (current.sentiment) {
-          case "Positive":
-            accumulator.positive++;
-            accumulator.sentiment++;
-            break;
-          case "Negative":
-            accumulator.negative++;
-            accumulator.sentiment--;
-            break;
-          case "Neutral":
-            accumulator.neutral++;
-            break;
-          default:
-            break;
-        }
+          switch (current.sentiment) {
+            case "Positive":
+              accumulator.positive++;
+              accumulator.sentiment++;
+              break;
+            case "Negative":
+              accumulator.negative++;
+              accumulator.sentiment--;
+              break;
+            case "Neutral":
+              accumulator.neutral++;
+              break;
+            default:
+              break;
+          }
 
-        return accumulator;
-      },
-      {
+          return accumulator;
+        },
+        {
+          positive: 0,
+          negative: 0,
+          neutral: 0,
+          sentiment: 0,
+          total: 0,
+        },
+      );
+
+      setSentiment(articlesSentiment);
+    } else {
+      setSentiment({
         positive: 0,
         negative: 0,
         neutral: 0,
         sentiment: 0,
         total: 0,
-      },
-    );
-
-    setSentiment(articlesSentiment);
+      });
+    }
   }, [articles]);
 
   return company ? (
