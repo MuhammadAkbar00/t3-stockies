@@ -10,6 +10,11 @@ import { get } from "lodash";
 import ArticleCard from "../components/ArticleCard";
 import CompanyCardMinimal from "../components/CompanyCardMinimal";
 import ArticleCardSmall from "../components/ArticleCardSmall";
+import { paginate } from "../helper/paginate";
+import { useState } from "react";
+import Pagination from "../components/Pagination";
+import OtherOrFavoritedCompany from "../components/OtherOrFavoritedCompany";
+import ArticlesSection from "../components/ArticlesSection";
 
 const Home: NextPage = () => {
   const companyQuery = trpc.company.all.useQuery();
@@ -17,38 +22,44 @@ const Home: NextPage = () => {
   const companyData = get(companyQuery, "data", []);
   const articleData = get(articleQuery, "data", []);
 
+  const [currentPageArticle, setCurrentPageArticle] = useState(1);
+  const pageSizeArticle = 9;
+
+  const paginatedArticle = paginate(
+    articleData,
+    currentPageArticle,
+    pageSizeArticle,
+  );
+
+  const [currentPageCompany, setCurrentPageCompany] = useState(1);
+  const pageSizeCompany = 5;
+
+  const paginatedCompany = paginate(
+    companyData,
+    currentPageCompany,
+    pageSizeCompany,
+  );
+
+  console.log(paginatedArticle, "paginatedArticle");
+
   return (
     <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
       <div className="flex flex-col justify-between gap-8 sm:flex-row">
         <div className="lg:w-[50%] lg:max-w-[50%]">
-          {companyData.map((company) => (
+          {paginatedCompany.map((company) => (
             <CompanyCard key={company.name} company={company} />
           ))}
+          <Pagination
+            currentPage={currentPageCompany}
+            totalCount={companyData.length}
+            pageSize={pageSizeCompany}
+            onPageChange={(page) => setCurrentPageCompany(page)}
+          />
         </div>
-        <div>
-          <h2 className="font-lato text-primary p-2 text-xl font-bold">
-            Other Company / Favorited Company
-          </h2>
-          <div className="flex flex-col gap-2">
-            {companyData.map((company) => (
-              <CompanyCardMinimal key={company.name} company={company} />
-            ))}
-          </div>
-        </div>
+
+        <OtherOrFavoritedCompany companies={companyData} />
       </div>
-      <div className="flex flex-col px-0">
-        <h2 className="font-lato text-primary p-2 text-2xl font-bold">
-          Articles
-        </h2>
-        <div className="grid grid-cols-1 justify-end gap-x-28 gap-y-5 pl-2 lg:grid-cols-2 xl:grid-cols-3 xl:gap-x-7">
-          {articleData.map((article) => (
-            <ArticleCardSmall
-              key={`article-card-${article.id}`}
-              article={article}
-            />
-          ))}
-        </div>
-      </div>
+      <ArticlesSection articles={articleData} />
     </main>
   );
 };

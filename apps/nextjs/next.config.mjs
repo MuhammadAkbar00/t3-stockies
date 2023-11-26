@@ -21,12 +21,13 @@ const config = {
         hostname: "**",
       },
     ],
-    // domains: [
-    //   "png.pngtree.com",
-    //   "cdn-icons-png.flaticon.com",
-    //   "upload.wikimedia.org",
-    //   "cdn.icon-icons.com",
-    // ],
+    domains: [
+      "png.pngtree.com",
+      "cdn-icons-png.flaticon.com",
+      "upload.wikimedia.org",
+      "cdn.icon-icons.com",
+      "p.imgci.com",
+    ],
   },
 };
 

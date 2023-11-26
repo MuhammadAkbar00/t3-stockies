@@ -28,7 +28,7 @@ const Companies = () => {
           <p className="text-primary text-xl font-bold">Company List</p>
           <SearchBar onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
-        <div className="mt-4 flex gap-4">
+        <div className="mt-4 flex flex-wrap gap-4">
           {searchedCompanies?.map((company) => (
             <CompanyCardMinimal key={company.id} company={company} />
           ))}

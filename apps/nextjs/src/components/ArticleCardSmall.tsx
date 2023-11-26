@@ -74,7 +74,7 @@ export default function ArticleCardSmall({ article }: IProps) {
         <p className="text-base text-[#A7A7A7]">
           {article.sentiment} - {handleDate(article.publish_date)}
         </p>
-        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900">
+        <h5 className="line-clamp-3 mb-2 text-xl font-bold tracking-tight text-gray-900">
           {article.title}
         </h5>
         <p className="line-clamp-4 mb-3 font-normal text-gray-700 ">

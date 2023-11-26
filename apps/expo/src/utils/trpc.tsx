@@ -35,6 +35,7 @@ const getBaseUrl = () => {
 export const TRPCProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  console.log(getBaseUrl(), "getBaseUrl");
   const { getToken } = useAuth();
   const [queryClient] = React.useState(() => new QueryClient());
   const [trpcClient] = React.useState(() =>

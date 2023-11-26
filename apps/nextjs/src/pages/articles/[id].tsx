@@ -28,7 +28,7 @@ const ArticleDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const { data: article, isLoading } = trpc.article.byId.useQuery(articleId);
 
   return article ? (
-    <main className="">
+    <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
       <div className="flex flex-col justify-between gap-8">
         <p className="text-primary text-4xl font-bold">{article.title}</p>
         <p className="text-primary text-2xl">{article.description}</p>
