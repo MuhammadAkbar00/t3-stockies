@@ -58,7 +58,7 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const { data: company, isLoading } = trpc.company.byId.useQuery(companyId);
   const companyQuery = trpc.company.all.useQuery();
   const articleQuery = trpc.article.byCompanyId.useQuery(companyId);
-  const articles = get(articleQuery, "data", []);
+  const articles: Article[] = get(articleQuery, "data", []);
   const companyData = get(companyQuery, "data", []);
   const [sentiment, setSentiment] = useState<SentimentStats | undefined>(
     initialState,
@@ -150,48 +150,38 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   };
 
   useEffect(() => {
-    if (articles.length > 0) {
-      const articlesSentiment = articles?.reduce(
-        (accumulator, current) => {
-          accumulator.total++;
+    const articlesSentiment = articles?.reduce(
+      (accumulator, current) => {
+        accumulator.total++;
 
-          switch (current.sentiment) {
-            case "Positive":
-              accumulator.positive++;
-              accumulator.sentiment++;
-              break;
-            case "Negative":
-              accumulator.negative++;
-              accumulator.sentiment--;
-              break;
-            case "Neutral":
-              accumulator.neutral++;
-              break;
-            default:
-              break;
-          }
+        switch (current.sentiment) {
+          case "Positive":
+            accumulator.positive++;
+            accumulator.sentiment++;
+            break;
+          case "Negative":
+            accumulator.negative++;
+            accumulator.sentiment--;
+            break;
+          case "Neutral":
+            accumulator.neutral++;
+            break;
+          default:
+            break;
+        }
 
-          return accumulator;
-        },
-        {
-          positive: 0,
-          negative: 0,
-          neutral: 0,
-          sentiment: 0,
-          total: 0,
-        },
-      );
-
-      setSentiment(articlesSentiment);
-    } else {
-      setSentiment({
+        return accumulator;
+      },
+      {
         positive: 0,
         negative: 0,
         neutral: 0,
         sentiment: 0,
         total: 0,
-      });
-    }
+      },
+    );
+
+    setSentiment(articlesSentiment);
   }, [articles]);
 
   return company ? (
