@@ -1,5 +1,3 @@
-import { AppRouter } from "@acme/api";
-import { inferProcedureOutput } from "@trpc/server";
 import React, { useState } from "react";
 import Pagination from "./Pagination";
 import { paginate } from "../helper/paginate";
@@ -8,7 +6,7 @@ import { trpc } from "../utils/trpc";
 import CompanyCard from "./CompanyCard";
 import CompanyCardSkeleton from "./skeleton/CompanyCardSkeleton";
 
-const CompaniesMainSection: React.FC = () => {
+function CompaniesMainSection() {
   const companyQuery = trpc.company.all.useQuery();
   const companyData = get(companyQuery, "data", []);
   const isLoading = get(companyQuery, "isLoading", true);
@@ -40,6 +38,6 @@ const CompaniesMainSection: React.FC = () => {
       />
     </>
   );
-};
+}
 
 export default CompaniesMainSection;

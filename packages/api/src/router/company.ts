@@ -8,9 +8,4 @@ export const companyRouter = router({
   byId: publicProcedure.input(z.number()).query(({ ctx, input }) => {
     return ctx.prisma.company.findFirst({ where: { id: input } });
   }),
-  // create: protectedProcedure
-  //   .input(z.object({ title: z.number(), content: z.string() }))
-  //   .mutation(({ ctx, input }) => {
-  //     return ctx.prisma.company.create({ data: input });
-  //   }),
 });
