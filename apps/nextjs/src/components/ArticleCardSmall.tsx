@@ -57,13 +57,13 @@ export default function ArticleCardSmall({ article }: IProps) {
   return (
     <a
       href={`/articles/${article.id}`}
-      className="flex min-h-[258px] flex-col items-center rounded-lg border border-gray-200 bg-white shadow hover:bg-gray-100 md:max-w-xl md:flex-row"
+      className="flex min-h-[258px] flex-col items-center rounded-lg border border-gray-200 bg-white shadow hover:bg-gray-100 lg:max-w-xl lg:flex-row"
     >
       <Image
         width={0}
         height={0}
         sizes="100vw"
-        className="h-full w-full rounded-l-lg object-cover md:h-full md:w-48"
+        className="h-full w-full rounded-l-lg object-cover lg:h-full lg:w-48"
         src={
           formatImageSource(article.image_url) ||
           "https://media.istockphoto.com/id/1202205418/photo/find-the-shortest-path-between-points-a-and-b.jpg?s=612x612&w=0&k=20&c=_0PSqcLbxAHx8eb_vFzDuKpKtlvZmxj1XbwZ61iwE0s="

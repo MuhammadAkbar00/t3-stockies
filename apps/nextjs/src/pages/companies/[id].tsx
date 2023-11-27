@@ -56,18 +56,11 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   companyId,
 }) => {
   const { data: company, isLoading } = trpc.company.byId.useQuery(companyId);
-  const companyQuery = trpc.company.all.useQuery();
   const articleQuery = trpc.article.byCompanyId.useQuery(companyId);
   const articles: Article[] = get(articleQuery, "data", []);
-  const companyData = get(companyQuery, "data", []);
   const [sentiment, setSentiment] = useState<SentimentStats | undefined>(
     initialState,
   );
-
-  articles?.map((article) => {
-    const date = article.publish_date ? new Date(article.publish_date) : null;
-    const formatted = date ? format(date, "dd/MM/yyyy") : null;
-  });
 
   function groupArticlesByDate(articles: Article[]): {
     [date: string]: number;
@@ -224,9 +217,9 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
             />
           </div>
         </div>
-        <OtherOrFavoritedCompany companies={companyData} />
+        <OtherOrFavoritedCompany />
       </div>
-      <ArticlesSection articles={articles} />
+      <ArticlesSection />
     </main>
   ) : null;
 };
