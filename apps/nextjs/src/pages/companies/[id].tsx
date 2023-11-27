@@ -185,7 +185,7 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
       <div className="flex flex-col justify-between gap-8 sm:flex-row">
         <div className="flex flex-col lg:w-[50%] lg:max-w-[50%]">
-          <CompanyCard company={company} refetch={refetch} />
+          <CompanyCard company={company} />
           <div className="m-2 mt-0 flex flex-grow rounded-lg bg-white p-6">
             <Line
               data={lineData}
