@@ -27,19 +27,52 @@ const ArticleDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 }) => {
   const { data: article, isLoading } = trpc.article.byId.useQuery(articleId);
 
-  return article ? (
-    <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
-      <div className="flex flex-col justify-between gap-8">
-        <p className="text-primary text-4xl font-bold">{article.title}</p>
-        <p className="text-primary text-2xl">{article.description}</p>
-        <p>{article.content}</p>
+  console.log(article, "article");
+
+  return article && article.title && article.content ? (
+    <>
+      <div>
+        <Image
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="h-96 w-full object-cover"
+          src={
+            formatImageSource(
+              "https://wallpapers.com/images/featured/new-york-aesthetic-pictures-hdj6cfehppy286jt.jpg",
+            ) ||
+            "https://media.istockphoto.com/id/1202205418/photo/find-the-shortest-path-between-points-a-and-b.jpg?s=612x612&w=0&k=20&c=_0PSqcLbxAHx8eb_vFzDuKpKtlvZmxj1XbwZ61iwE0s="
+          }
+          alt=""
+        />
       </div>
-    </main>
+      <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
+        <div className="flex flex-col justify-between gap-8">
+          <p className=" text-4xl font-bold">{article.title}</p>
+          {article.description && (
+            <p className="text-primary text-2xl">{article.description}</p>
+          )}
+          {article.link && (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={article.link}
+              className="text-primary text-2xl"
+            >
+              {article.link}
+            </a>
+          )}
+          <p>{article.content}</p>
+        </div>
+      </main>
+    </>
   ) : null;
 };
 
 import { prisma } from "@acme/db";
 import superjson from "superjson";
+import Image from "next/image";
+import { formatImageSource } from "../../utils/formatImageSource";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = createProxySSGHelpers({

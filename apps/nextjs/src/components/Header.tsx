@@ -274,7 +274,7 @@ export default function Header() {
             Companies
           </a>
           <a
-            href="#"
+            href="/favorites"
             className="font-lato text-sm font-normal leading-6 text-[#666666]"
           >
             Favorites
