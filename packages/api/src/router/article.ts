@@ -5,8 +5,24 @@ export const articleRouter = router({
   all: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.article.findMany();
   }),
-  byId: publicProcedure.input(z.string()).query(({ ctx, input }) => {
-    return ctx.prisma.article.findFirst({ where: { id: input } });
+  latest50: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.article.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 50,
+    });
+  }),
+  byId: publicProcedure.input(z.string().nullable()).query(({ ctx, input }) => {
+    if (!input) {
+      return null;
+    }
+    return ctx.prisma.article.findFirst({
+      where: { id: input },
+      include: {
+        company: true,
+      },
+    });
   }),
   byCompanyId: publicProcedure.input(z.number()).query(({ ctx, input }) => {
     return ctx.prisma.article.findMany({ where: { company_id: input } });

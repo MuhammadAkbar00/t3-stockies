@@ -6,28 +6,10 @@ import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { get } from "lodash";
 
-interface SentimentStats {
-  positive: number;
-  negative: number;
-  neutral: number;
-  sentiment: number;
-  total: number;
-}
-
-const initialState: SentimentStats = {
-  positive: 0,
-  negative: 0,
-  neutral: 0,
-  sentiment: 0,
-  total: 0,
-};
-
 const ArticleDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   articleId,
 }) => {
   const { data: article, isLoading } = trpc.article.byId.useQuery(articleId);
-
-  console.log(article, "article");
 
   return article && article.title && article.content ? (
     <>
@@ -48,7 +30,7 @@ const ArticleDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
       </div>
       <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
         <div className="flex flex-col justify-between gap-8">
-          <p className=" text-4xl font-bold">{article.title}</p>
+          <p className="text-4xl font-bold">{article.title}</p>
           {article.description && (
             <p className="text-primary text-2xl">{article.description}</p>
           )}

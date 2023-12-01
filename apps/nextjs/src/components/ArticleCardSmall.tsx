@@ -77,7 +77,7 @@ export default function ArticleCardSmall({ article }: IProps) {
         <h5 className="line-clamp-3 mb-2 text-xl font-bold tracking-tight text-gray-900">
           {article.title}
         </h5>
-        <p className="line-clamp-4 mb-3 font-normal text-gray-700 ">
+        <p className="line-clamp-4 mb-3 font-normal text-gray-700">
           {article.description}
         </p>
       </div>
