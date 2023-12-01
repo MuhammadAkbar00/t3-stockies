@@ -84,7 +84,7 @@ const SignInPage = () => {
     <main className="bg-gray-50">
       <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
         <a
-          href="#"
+          href="/"
           className="mb-6 flex items-center text-2xl font-semibold text-gray-900"
         >
           <h1 className="font-lato text-primary text-4xl font-extrabold tracking-tighter">

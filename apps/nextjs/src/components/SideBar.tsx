@@ -78,7 +78,7 @@ export default function SideBar({ isOpen, setIsOpen }: IProps) {
                     )}
                   </div>
                 ) : (
-                  <p>Log in</p>
+                  <a href="/sign-in">Log in</a>
                 )}
               </a>
             </div>
