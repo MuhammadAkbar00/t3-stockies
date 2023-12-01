@@ -3,7 +3,11 @@ import { z } from "zod";
 
 export const articleRouter = router({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.article.findMany();
+    return ctx.prisma.article.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
   }),
   latest50: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.article.findMany({
