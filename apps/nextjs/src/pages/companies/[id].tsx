@@ -61,8 +61,6 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     initialState,
   );
 
-  const router = useRouter();
-
   function groupArticlesByDate(articles: Article[]): {
     [date: string]: number;
   } {
@@ -220,7 +218,7 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
         </div>
         <OtherOrFavoritedCompany />
       </div>
-      <ArticlesSection />
+      <ArticlesSection companyId={companyId} />
     </main>
   ) : null;
 };

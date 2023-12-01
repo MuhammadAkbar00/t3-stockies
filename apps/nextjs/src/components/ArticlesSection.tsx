@@ -8,8 +8,17 @@ import { get } from "lodash";
 import { trpc } from "../utils/trpc";
 import ArticleCardSmallSkeleton from "./skeleton/ArticleCardSmallSkeleton";
 
-const ArticlesSection: React.FC = () => {
-  const articleQuery = trpc.article.all.useQuery();
+type ArticlesSectionProps = {
+  companyId?: number;
+};
+
+const ArticlesSection: React.FC<ArticlesSectionProps> = ({ companyId }) => {
+  let articleQuery;
+  if (companyId) {
+    articleQuery = trpc.article.byCompanyId.useQuery(companyId);
+  } else {
+    articleQuery = trpc.article.all.useQuery();
+  }
   const articleData = get(articleQuery, "data", []);
   const isLoading = get(articleQuery, "isLoading", false);
 
