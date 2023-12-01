@@ -1,13 +1,12 @@
 import { FC, useState, useEffect } from "react";
 import { trpc } from "../../utils/trpc";
-import { inferProcedureOutput } from "@trpc/server";
-import { AppRouter, appRouter, createContext } from "@acme/api";
+import { appRouter } from "@acme/api";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { createProxySSGHelpers } from "@trpc/react-query/ssg";
-import { get, isEmpty } from "lodash";
+import { get } from "lodash";
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 interface SentimentStats {
   positive: number;
@@ -184,7 +183,7 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <div className="flex flex-col justify-between gap-8 sm:flex-row">
         <div className="flex flex-col lg:w-[50%] lg:max-w-[50%]">
           <CompanyCardNoMoreButton company={company} />
-          <div className="m-2 mt-0 flex flex-grow rounded-lg bg-white p-6">
+          <div className="m-2 mt-0 mb-0 flex flex-grow rounded-lg bg-white p-6">
             <Line
               data={lineData}
               options={{
@@ -228,7 +227,6 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
 import { Prisma, prisma } from "@acme/db";
 import superjson from "superjson";
-import CompanyCard from "../../components/CompanyCard";
 import OtherOrFavoritedCompany from "../../components/OtherOrFavoritedCompany";
 import ArticlesSection from "../../components/ArticlesSection";
 import { useRouter } from "next/router";

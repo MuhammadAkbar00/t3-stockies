@@ -23,7 +23,7 @@ const ArticlesSection: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col px-0">
+    <div className="flex flex-col px-0 pt-4">
       <h2 className="font-lato text-primary p-2 text-2xl font-bold">
         Articles
       </h2>

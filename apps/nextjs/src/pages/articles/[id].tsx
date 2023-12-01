@@ -39,7 +39,7 @@ const ArticleDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
               target="_blank"
               rel="noopener noreferrer"
               href={article.link}
-              className="text-primary text-2xl"
+              className="text-primary line-clamp-3 w-full text-2xl"
             >
               {article.link}
             </a>
