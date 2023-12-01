@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "5297f2e8-a7c4-4097-92cd-adf9df5e6802"
+      }
+    },
+    "android": {
+      "package": "com.capstone.stockies"
+    },
+    "ios": {
+      "bundleIdentifier": "com.capstone.stockies"
+    }
+  }
+}

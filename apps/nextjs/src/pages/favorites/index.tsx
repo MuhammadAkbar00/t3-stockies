@@ -15,8 +15,6 @@ const Favorites = () => {
 
   const companyFavoriteArray = get(userCompanyFavoriteQuery, "data", []);
 
-  console.log(companyFavoriteArray, "companyFavoriteArray");
-
   const companyFavoriteData = companyFavoriteArray.map(
     (companyFavorite) => companyFavorite.user_company,
   );
@@ -27,13 +25,15 @@ const Favorites = () => {
 
   useEffect(() => {
     const search = searchTerm.toLowerCase();
-    setSearchedFavoriteCompanies(
-      companyFavoriteData?.filter(
-        (company) =>
-          company.name.toLowerCase().includes(search) ||
-          company.ticker.toLowerCase().includes(search),
-      ),
-    );
+    setTimeout(() => {
+      setSearchedFavoriteCompanies(
+        companyFavoriteData?.filter(
+          (company) =>
+            company.name.toLowerCase().includes(search) ||
+            company.ticker.toLowerCase().includes(search),
+        ),
+      );
+    }, 300);
   }, [searchTerm, companyFavoriteData]);
 
   return (

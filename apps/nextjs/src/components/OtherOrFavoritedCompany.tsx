@@ -6,7 +6,7 @@ import { get } from "lodash";
 import { useUser } from "../context/authContext";
 
 const OtherOrFavoritedCompany: React.FC = () => {
-  const { user, handleLogout } = useUser();
+  const { user } = useUser();
   const companyQuery = trpc.company.all.useQuery();
   const userId = user?.id ? user.id : null;
   const userCompanyFavoriteQuery =
@@ -14,8 +14,6 @@ const OtherOrFavoritedCompany: React.FC = () => {
   const companyData = get(companyQuery, "data", []);
   const companyFavoriteArray = get(userCompanyFavoriteQuery, "data", []);
   const isLoading = get(companyQuery, "isLoading", false);
-
-  console.log(companyFavoriteArray, "companyFavoriteArray");
 
   const companyFavoriteData = companyFavoriteArray.map(
     (companyFavorite) => companyFavorite.user_company,

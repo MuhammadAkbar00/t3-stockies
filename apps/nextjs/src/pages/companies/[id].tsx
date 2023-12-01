@@ -48,10 +48,6 @@ interface Article {
   video_url: string | null;
 }
 
-interface GroupedArticles {
-  [key: string]: Article[];
-}
-
 const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   companyId,
 }) => {
@@ -65,6 +61,8 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const [sentiment, setSentiment] = useState<SentimentStats | undefined>(
     initialState,
   );
+
+  const router = useRouter();
 
   function groupArticlesByDate(articles: Article[]): {
     [date: string]: number;
@@ -126,8 +124,6 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   const groupedArticles = articles ? groupArticlesByDate(articles) : [];
 
-  console.log(groupedArticles, "groupedArticles");
-
   ChartJS.register();
   defaults.maintainAspectRatio = true;
   defaults.responsive = true;
@@ -147,45 +143,47 @@ const CompanyDetails: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   };
 
   useEffect(() => {
-    const articlesSentiment = articles?.reduce(
-      (accumulator, current) => {
-        accumulator.total++;
+    setTimeout(() => {
+      const articlesSentiment = articles?.reduce(
+        (accumulator, current) => {
+          accumulator.total++;
 
-        switch (current.sentiment) {
-          case "Positive":
-            accumulator.positive++;
-            accumulator.sentiment++;
-            break;
-          case "Negative":
-            accumulator.negative++;
-            accumulator.sentiment--;
-            break;
-          case "Neutral":
-            accumulator.neutral++;
-            break;
-          default:
-            break;
-        }
+          switch (current.sentiment) {
+            case "Positive":
+              accumulator.positive++;
+              accumulator.sentiment++;
+              break;
+            case "Negative":
+              accumulator.negative++;
+              accumulator.sentiment--;
+              break;
+            case "Neutral":
+              accumulator.neutral++;
+              break;
+            default:
+              break;
+          }
 
-        return accumulator;
-      },
-      {
-        positive: 0,
-        negative: 0,
-        neutral: 0,
-        sentiment: 0,
-        total: 0,
-      },
-    );
+          return accumulator;
+        },
+        {
+          positive: 0,
+          negative: 0,
+          neutral: 0,
+          sentiment: 0,
+          total: 0,
+        },
+      );
 
-    setSentiment(articlesSentiment);
+      setSentiment(articlesSentiment);
+    }, 300);
   }, [articles]);
 
   return company ? (
     <main className="bg-light-gray lgr:px-48 flex min-h-screen flex-col py-7 px-7 lg:px-16 xl:px-60">
       <div className="flex flex-col justify-between gap-8 sm:flex-row">
         <div className="flex flex-col lg:w-[50%] lg:max-w-[50%]">
-          <CompanyCard company={company} />
+          <CompanyCardNoMoreButton company={company} />
           <div className="m-2 mt-0 flex flex-grow rounded-lg bg-white p-6">
             <Line
               data={lineData}
@@ -233,6 +231,8 @@ import superjson from "superjson";
 import CompanyCard from "../../components/CompanyCard";
 import OtherOrFavoritedCompany from "../../components/OtherOrFavoritedCompany";
 import ArticlesSection from "../../components/ArticlesSection";
+import { useRouter } from "next/router";
+import CompanyCardNoMoreButton from "../../components/CompanyCardNoMoreButton";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = createProxySSGHelpers({

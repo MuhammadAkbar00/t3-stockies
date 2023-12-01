@@ -17,13 +17,15 @@ const Articles = () => {
 
   useEffect(() => {
     const search = searchTerm.toLowerCase();
-    setSearchedArticles(
-      articles.filter(
-        (article) =>
-          article.title.toLowerCase().includes(search) ||
-          article.description.toLowerCase().includes(search),
-      ),
-    );
+    setTimeout(() => {
+      setSearchedArticles(
+        articles.filter(
+          (article) =>
+            article.title.toLowerCase().includes(search) ||
+            article.description.toLowerCase().includes(search),
+        ),
+      );
+    }, 300);
   }, [searchTerm, articles]);
 
   const [currentPageArticle, setCurrentPageArticle] = useState(1);

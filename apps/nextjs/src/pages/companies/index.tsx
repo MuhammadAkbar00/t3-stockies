@@ -12,13 +12,15 @@ const Companies = () => {
 
   useEffect(() => {
     const search = searchTerm.toLowerCase();
-    setSearchedCompanies(
-      companies?.filter(
-        (company) =>
-          company.name.toLowerCase().includes(search) ||
-          company.ticker.toLowerCase().includes(search),
-      ),
-    );
+    setTimeout(() => {
+      setSearchedCompanies(
+        companies?.filter(
+          (company) =>
+            company.name.toLowerCase().includes(search) ||
+            company.ticker.toLowerCase().includes(search),
+        ),
+      );
+    }, 300);
   }, [searchTerm, companies]);
 
   return (
